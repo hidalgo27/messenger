@@ -14,14 +14,16 @@
         <div class="text-center">
           <h3>Iniciar Sesion</h3>
         </div>
+        <p *ngIf="operation == 'register'">Ya tienes cuenta? Has <a (click)="operation = 'login'">Login</a></p>
+        <p *ngIf="operation == 'login'">No tienes cuenta? <a (click)="operation = 'register'">Registrarse</a></p>
         <div class="borderedContainer">
           <input class="form-control" type="email" placeholder="Ingrese Email">
-          <input class="form-control my-5" type="password" placeholder="Ingrese Contraseña">
-          <input class="form-control" type="text" placeholder="Ingrese Nick">
+          <input class="form-control my-3" type="password" placeholder="Ingrese Contraseña">
+          <input *ngIf="operation == 'register'" class="form-control" type="text" placeholder="Ingrese Nick">
         </div>
         <div class="text-center mt-4">
-          <a href="" class="btn btn-primary">Iniciar Sesion</a>
-          <a href="" class="btn btn-primary">Registrarme</a>
+          <a *ngIf="operation == 'login'" href="" class="btn btn-light">Iniciar Sesion</a>
+          <a *ngIf="operation == 'register'" href="" class="btn btn-primary">Registrarme</a>
         </div>
       </div>
     </div>
