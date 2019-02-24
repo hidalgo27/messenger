@@ -1,0 +1,12 @@
+#homeContainer{
+  background-image: url(/assets/img/msnbg.jpg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+
+}
+.icon-zumbido{
+  width: 35px;
+}
+.icon-bubble{
+  width: 30px;
+}

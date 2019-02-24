@@ -1,13 +1,13 @@
 <div id="homeContainer">
   <div class="whiteBorderGlassBox">
-    <div class="homeHeadContainer rounded">
-      <div class="row">
+    <div class="homeHeadContainer">
+      <div class="row no-gutters">
         <div class="col-md-auto">
-          <div class="avatarFrameOnLine rounded">
+          <div class="avatarFrameOnLine">
             <img src="assets/img/generic_avatar.png" alt="" class="homeAvatarPicture">
           </div>
         </div>
-        <div class="col">
+        <div class="col px-4">
           <b>Eduardo</b>
           <div>
             <span>Online</span>
@@ -18,7 +18,7 @@
       </div>
     </div>
   </div>
-  <div class="whiteContainerPadded p-3 mt-5">
+  <div class="whiteContainerPadded ">
     <div class="row">
       <div class="col">
         <input class="form-control" type="text" placeholder="Buscar amigo" [(ngModel)]="query">
@@ -29,12 +29,13 @@
     </div>
     <hr>
     <b>Amigos ({{friends.length}} / {{friends.length}})</b>
-    <ng-container *ngFor="let user of friends | search: query; let i = index">
-      <div>
-        <a routerLink="/conversation/{{user.uid}}">
-          <img class="user-status" src="assets/img/logo_live_{{user.status}}.png" alt="Estatus"/> {{i}}. {{user.nick}} - {{user.email}}
-        </a>
-      </div>
-    </ng-container>
+    <div *ngFor="let user of friends | search: query; let i = index" class="d-block mb-2">
+        <span routerLink="/conversation/{{user.uid}}">
+          <img class="icon" src="assets/img/logo_live_{{user.status}}.png" alt="status"/>
+          <b>{{user.nick}}</b> - {{user.subnick || 'No subnick'}}
+          <small>{{user.email}}</small>
+        </span>
+
+    </div>
   </div>
 </div>

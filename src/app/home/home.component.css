@@ -7,17 +7,19 @@
   background-repeat: no-repeat;
 }
 .whiteBorderGlassBox {
-  border: 2px solid rgba(255, 255, 255, .75);
+  /*border: 2px solid rgba(255, 255, 255, .75);*/
   padding: 8px;
 }
 .homeHeadContainer {
   background-color: rgba(255, 255, 255, .50);
+  border-radius: 10px;
 }
 .homeAvatarPicture {
   max-width: 100px;
 }
 .whiteContainerPadded{
-  background-color: #feffff;
+  padding: 15px;
+  /*background-color: #feffff;*/
 }
 img.icon{
   width: 30px;
