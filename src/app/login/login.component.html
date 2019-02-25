@@ -4,7 +4,7 @@
     <div class="row justify-content-md-center">
       <div class="col-md-3">
         <div class="avatarFrameOffline my-4">
-          <img src="../../assets/img/generic_avatar.png" alt="" class="avatarImage img-fluid">
+          <img src="assets/img/generic_avatar.png" alt="" class="avatarImage img-fluid">
         </div>
       </div>
     </div>
@@ -17,13 +17,14 @@
         <p *ngIf="operation == 'register'">Ya tienes cuenta? Has <a (click)="operation = 'login'">Login</a></p>
         <p *ngIf="operation == 'login'">No tienes cuenta? <a (click)="operation = 'register'">Registrarse</a></p>
         <div class="borderedContainer">
-          <input class="form-control" type="email" placeholder="Ingrese Email">
-          <input class="form-control my-3" type="password" placeholder="Ingrese Contraseña">
-          <input *ngIf="operation == 'register'" class="form-control" type="text" placeholder="Ingrese Nick">
+          <input [(ngModel)]="email" class="form-control" type="email" placeholder="Ingrese Email">
+          <input [(ngModel)]="password" class="form-control my-3" type="password" placeholder="Ingrese Contraseña">
+          <input [(ngModel)]="nick" *ngIf="operation == 'register'" class="form-control" type="text" placeholder="Ingrese Nick">
         </div>
         <div class="text-center mt-4">
-          <a *ngIf="operation == 'login'" href="" class="btn btn-light">Iniciar Sesion</a>
-          <a *ngIf="operation == 'register'" href="" class="btn btn-primary">Registrarme</a>
+          <a (click)="login()" *ngIf="operation == 'login'" class="btn btn-light">Iniciar Sesion</a>
+          <a (click)="loginSocial()" *ngIf="operation == 'login'" class="btn btn-primary text-white mx-3"><i class="fab fa-facebook"></i> Iniciar Sesion con Facebook</a>
+          <a (click)="register()" *ngIf="operation == 'register'" class="btn btn-primary">Registrarme</a>
         </div>
       </div>
     </div>

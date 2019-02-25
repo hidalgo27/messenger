@@ -12,7 +12,8 @@
           <div>
             <span>Online</span>
             <br>
-            <span>< Escribe un mensaje personal ></span>
+            <span>< Escribe un mensaje personal ></span> <br>
+            <a (click)="logout()">Logout</a>
           </div>
         </div>
       </div>
@@ -24,14 +25,14 @@
         <input class="form-control" type="text" placeholder="Buscar amigo" [(ngModel)]="query">
       </div>
       <div class="col-md-auto">
-        <img src="assets/img/logo_live_add.png" alt="" class="icon">
+        <img src="../../assets/img/logo_live_add.png" alt="" class="icon">
       </div>
     </div>
     <hr>
-    <b>Amigos ({{friends.length}} / {{friends.length}})</b>
+    <b *ngIf="friends">Amigos ({{friends.length}} / {{friends.length}})</b>
     <div *ngFor="let user of friends | search: query; let i = index" class="d-block mb-2">
         <span routerLink="/conversation/{{user.uid}}">
-          <img class="icon" src="assets/img/logo_live_{{user.status}}.png" alt="status"/>
+          <img class="icon" src="assets/img/logo_live_online.png" alt="status"/>
           <b>{{user.nick}}</b> - {{user.subnick || 'No subnick'}}
           <small>{{user.email}}</small>
         </span>
