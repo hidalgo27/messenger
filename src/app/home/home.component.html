@@ -3,14 +3,14 @@
     <div class="homeHeadContainer">
       <div class="row no-gutters">
         <div class="col-md-auto">
-          <div class="avatarFrameOnLine">
-            <img src="assets/img/generic_avatar.png" alt="" class="homeAvatarPicture">
+          <div class="avatarFrameOnLine" *ngIf="user">
+            <img [src]="croppedImage || user.avatar || 'assets/img/generic_avatar.png'" alt="" class="homeAvatarPicture">
           </div>
         </div>
-        <div class="col px-4">
-          <b>Eduardo</b>
+        <div class="col px-4" *ngIf="user">
+          <b class="text-uppercase">{{user.nick}}</b>
           <div>
-            <span>Online</span>
+            <span>{{user.status}}</span>
             <br>
             <span>< Escribe un mensaje personal ></span> <br>
             <a (click)="logout()">Logout</a>
@@ -32,7 +32,7 @@
     <b *ngIf="friends">Amigos ({{friends.length}} / {{friends.length}})</b>
     <div *ngFor="let user of friends | search: query; let i = index" class="d-block mb-2">
         <span routerLink="/conversation/{{user.uid}}">
-          <img class="icon" src="assets/img/logo_live_online.png" alt="status"/>
+          <img class="icon" src="assets/img/logo_live_{{user.status || 'offline'}}.png" alt="status"/>
           <b>{{user.nick}}</b> - {{user.subnick || 'No subnick'}}
           <small>{{user.email}}</small>
         </span>

@@ -1,4 +1,4 @@
-<div id="homeContainer">
+<div id="homeContainer" [ngClass]="{'shaker': shake}">
   <div class="container">
       <div class="row pt-4">
         <div class="col-2">
@@ -13,49 +13,58 @@
               <hr>
             </div>
           </div>
-          <div class="row my-2 no-gutters align-items-center">
-            <div class="col-auto text-center">
-              <img src="assets/img/generic_avatar.png" alt="" class="rounded-circle mr-2 icon-bubble">
-            </div>
-            <div class="col">
-              <div class="row justify-content-start">
-                <div class="col-auto">
-                  <div class="bg-light rounded p-2 text-dark">
-                    Lorem ipsum dolor sit amet.
+
+          <div class="messageGroup" *ngFor="let m of conversation">
+            <!--<b>{{getUserNickById(m.sender)}}</b> dice: {{getUserNickByIdUser(m.sender)}} <br>-->
+            <!--<span>{{m.text}}</span>-->
+            <div class="row my-2 no-gutters align-items-center" *ngIf="getUserNickByIdUser(m.sender) == getUserNickById(m.sender)">
+              <div class="col">
+                <div class="row justify-content-end">
+                  <div class="col-auto">
+                    <div class="bg-primary rounded p-2 text-white">
+                      {{m.text}}
+                    </div>
                   </div>
                 </div>
               </div>
+              <div class="col-auto text-center">
+                <img src="{{getUserNickByAvatar(m.sender)}}" alt="" class="rounded-circle ml-2 icon-bubble">
+              </div>
             </div>
-          </div>
-          <div class="row my-2 no-gutters align-items-center">
-            <div class="col-auto text-center">
-              <img src="assets/img/generic_avatar.png" alt="" class="rounded-circle mr-2 icon-bubble">
-            </div>
-            <div class="col">
-              <div class="row justify-content-start">
-                <div class="col-auto">
-                  <div class="bg-light rounded p-2 text-dark">
-                    <img src="assets/img/1.jpg" alt="" class="img-fluid">
+
+            <div class="row my-2 no-gutters align-items-center" *ngIf="getUserNickByIdUser(m.sender) != getUserNickById(m.sender)">
+              <div class="col-auto text-center">
+                <img src="{{getUserNickByAvatar(m.sender)}}" alt="" class="rounded-circle mr-2 icon-bubble">
+              </div>
+              <div class="col">
+                <div class="row justify-content-start">
+                  <div class="col-auto">
+                    <div class="bg-light rounded p-2 text-dark">
+                      {{m.text}}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            <!--</div>-->
+
           </div>
-          <div class="row my-2 no-gutters align-items-center">
-            <div class="col">
-              <div class="row justify-content-end">
-                <div class="col-auto">
-                  <div class="bg-primary rounded p-2 text-white">
-                    Lorem ipsum dolor sit amet, consectetur. Accusamus, natus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet consequatur distinctio est, fuga ipsa ipsam iste laborum laudantium minus, nemo optio qui quibusdam, quisquam quo rerum saepe voluptatibus. Minima, natus?
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-auto text-center">
-              <img src="assets/img/generic_avatar.png" alt="" class="rounded-circle ml-2 icon-bubble">
-            </div>
-          </div>
+
+          <!--<div class="row my-2 no-gutters align-items-center">-->
+            <!--<div class="col-auto text-center">-->
+              <!--<img src="assets/img/generic_avatar.png" alt="" class="rounded-circle mr-2 icon-bubble">-->
+            <!--</div>-->
+            <!--<div class="col">-->
+              <!--<div class="row justify-content-start">-->
+                <!--<div class="col-auto">-->
+                  <!--<div class="bg-light rounded p-2 text-dark">-->
+                    <!--<img src="assets/img/1.jpg" alt="" class="img-fluid">-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
         </div>
+      </div>
       </div>
 
     <div class="row pt-4">
@@ -67,7 +76,7 @@
       <div class="col">
         <div class="card">
           <div class="card-body p-0">
-            <textarea class="form-control rounded-0"></textarea>
+            <textarea [(ngModel)]="textMessage" (keyup.enter)="sendMessage()" class="form-control rounded-0"></textarea>
           </div>
           <div class="card-footer">
             <div class="row no-gutters align-items-center">
@@ -80,7 +89,7 @@
                 <i class="fas fa-sort-down px-1"></i>
               </div>
               <div class="col-auto pr-3">
-                <img src="assets/img/zumbido.png" alt="" class="icon-zumbido">
+                <img src="assets/img/zumbido.png" alt="" class="icon-zumbido" (click)="sendZumbido()">
               </div>
               <div class="col-auto">
                 <label class="custom-file-upload-chat m-0">

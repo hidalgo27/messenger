@@ -1,10 +1,11 @@
 
 export interface User {
-  nick: string;
+  nick?: string;
   subnick?: string;
   age?: number;
   email: string;
   friend: boolean;
-  status: string;
+  status?: string;
   uid: any;
+  avatar?: string;
 }
