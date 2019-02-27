@@ -25,18 +25,39 @@
         <input class="form-control" type="text" placeholder="Buscar amigo" [(ngModel)]="query">
       </div>
       <div class="col-md-auto">
-        <img src="../../assets/img/logo_live_add.png" alt="" class="icon">
+        <img (click)="open(content)" src="assets/img/logo_live_add.png" alt="" class="icon">
       </div>
     </div>
     <hr>
-    <b *ngIf="friends">Amigos ({{friends.length}} / {{friends.length}})</b>
-    <div *ngFor="let user of friends | search: query; let i = index" class="d-block mb-2">
-        <span routerLink="/conversation/{{user.uid}}">
-          <img class="icon" src="assets/img/logo_live_{{user.status || 'offline'}}.png" alt="status"/>
-          <b>{{user.nick}}</b> - {{user.subnick || 'No subnick'}}
-          <small>{{user.email}}</small>
-        </span>
-
+    <b *ngIf="user && user.friends">Amigos ({{user.friends.length}} / {{user.friends.length}})</b>
+    <div *ngIf="user && user.friends">
+      <app-contact class="col-12" *ngFor="let user of user.friends" [uid]="user"></app-contact>
     </div>
   </div>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Agregar Amigo</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col">
+        <b>Ingrese el email de tu amigo</b>
+        <input type="email" class="form-control" placeholder="Email" [(ngModel)]="friendEmail" (keyup.enter)="sendRequest()">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col">
+        <b>Enviale un mensaje</b>
+        <textarea class="form-control" [(ngModel)]="friendMessage"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="sendRequest()">Guardar</button>
+  </div>
+</ng-template>

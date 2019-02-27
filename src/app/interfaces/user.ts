@@ -8,4 +8,6 @@ export interface User {
   status?: string;
   uid: any;
   avatar?: string;
+  friends?: any;
+  message?: any;
 }

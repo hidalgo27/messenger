@@ -3,6 +3,8 @@ import {User} from '../interfaces/user';
 import {UserService} from '../services/user.service';
 import {AuthenticationService} from '../services/authentication.service';
 import {Router} from '@angular/router';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {RequestsService} from '../services/requests.service';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +15,13 @@ export class HomeComponent implements OnInit {
   friends: User[];
   user: User;
   query: string =  '';
-  constructor(private userService: UserService, private authenticationService: AuthenticationService, private router: Router) {
+  friendEmail: string = '';
+  friendMessage: string = '';
+  constructor(private userService: UserService,
+              private authenticationService: AuthenticationService,
+              private router: Router,
+              private modalService: NgbModal,
+              private requestsService: RequestsService) {
     this.userService.getUsers().valueChanges().subscribe
     ((data: User[]) => { this.friends = data; }, (error) => { console.log(error); });
 
@@ -24,7 +32,10 @@ export class HomeComponent implements OnInit {
             .subscribe(
               (data: User) => {
                 this.user = data;
-                console.log(this.user);
+                if (this.user.friends) {
+                  this.user.friends = Object.values(this.user.friends);
+                  console.log(this.user);
+                }
               },
               (error) => {
                 console.log(error);
@@ -50,5 +61,32 @@ export class HomeComponent implements OnInit {
       (error) => {
         console.log(error);
       });
+  }
+
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      // this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  sendRequest() {
+    const request = {
+      timestamp: Date.now(),
+      receiver_email: this.friendEmail,
+      message: this.friendMessage,
+      sender: this.user.uid,
+      status: 'pending'
+    };
+    this.requestsService.createRequest(request)
+      .then(
+        () => {
+          alert('Solicitud enviada');
+        })
+      .catch(
+        (error) => {
+          alert('Hubo un error');
+          console.log(error);
+        });
   }
 }
